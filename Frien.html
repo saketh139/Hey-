@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Message</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #2c3e50;
+        }
+        p {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .yes-button {
+            background-color: #3498db;
+        }
+        .yes-button:hover {
+            background-color: #2980b9;
+        }
+        .no-button {
+            background-color: #e74c3c;
+        }
+        .no-button:hover {
+            background-color: #c0392b;
+        }
+        .response {
+            display: none;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .letter {
+            text-align: left;
+            margin: 20px auto;
+            font-size: 1.1em;
+            line-height: 1.6;
+            max-width: 600px;
+            white-space: pre-wrap;
+            text-align: left;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        .letter-container {
+            display: none;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .thank-you {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, My Dear Friend!</h1>
+        <p>I want to speak from my heart.</p>
+        <p id="initial-question">If you want to hear me, click YES or NO.</p>
+        <button class="button yes-button" onclick="showLetter()">YES</button>
+        <button class="button no-button" onclick="showNoResponse()">NO</button>
+
+        <div id="its-okay" class="response hidden">
+            <h2>It's okay!</h2>
+            <p>Please click YES. It's very hard to make this website.</p>
+        </div>
+
+        <div id="letter-container" class="letter-container">
+            <div class="letter" id="letter-content"></div>
+        </div>
+
+        <div id="thank-you" class="thank-you">
+            <p>Thank you for reading this with all your patience and thank you for being my person.</p>
+        </div>
+    </div>
+
+    <script>
+        function showLetter() {
+            document.getElementById('initial-question').style.display = 'none';
+            document.querySelector('.yes-button').style.display = 'none';
+            document.querySelector('.no-button').style.display = 'none';
+            document.getElementById('letter-container').style.display = 'block';
+            displayLetter();
+        }
+
+        function showNoResponse() {
+            document.getElementById('initial-question').style.display = 'none';
+            document.querySelector('.yes-button').style.display = 'none';
+            document.querySelector('.no-button').style.display = 'none';
+            document.getElementById('its-okay').style.display = 'block';
+        }
+
+        function displayLetter() {
+            const letterText = `Dear Potti,
+
+I’ve been thinking about how to put my feelings into words, and I hope this letter helps convey just how much you mean to me. Since the day we met on July 22nd, my life has been filled with something I never expected—an overwhelming sense of joy and connection that’s grown into something truly special.
+
+From the very first conversation, it was clear that what we share is far more than just a friendship. There’s something deeply profound about the way we connect, and I find myself completely drawn to you. Every day, I’m grateful for the moments we spend together, and I eagerly anticipate our conversations. It’s as if you’ve become a vital part of my daily life, and I can’t imagine a single day without your presence.
+
+You’ve come to mean so much more to me than just a friend. The bond we share feels like a beautiful blend of affection, understanding, and something even deeper. It’s a feeling that’s hard to describe but impossible to ignore. You make every day brighter, and your presence in my life is a gift I treasure deeply.
+
+Thank you for being such an incredible person and for allowing me to be a part of your life. What we have is precious to me, and I’m excited about the journey we’re on together. Here’s to many more shared moments, laughter, and the beautiful future that lies ahead for us.
+
+With all my love,
+Saketh`;
+
+            const letterElement = document.getElementById('letter-content');
+            letterElement.textContent = ''; // Clear the letter content
+            let index = 0;
+            const speed = letterText.length / 10; // Display over 10 seconds
+            function typeLetter() {
+                if (index < letterText.length) {
+                    letterElement.textContent += letterText[index++];
+                    setTimeout(typeLetter, speed);
+                } else {
+                    // Show thank you message after letter is fully displayed
+                    setTimeout(() => {
+                        document.getElementById('thank-you').style.display = 'block';
+                    }, 1000); // Small delay before showing the thank you message
+                }
+            }
+            typeLetter();
+        }
+    </script>
+</body>
+</html>
